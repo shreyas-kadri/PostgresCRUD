@@ -1,5 +1,6 @@
 package com.skprj.crudPostgres.Entities;
 
+import com.skprj.crudPostgres.Model.OrderProductId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

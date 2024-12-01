@@ -1,4 +1,9 @@
 package com.skprj.crudPostgres.Repository;
 
-public interface OrderRepository {
+import com.skprj.crudPostgres.Entities.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderRepository extends JpaRepository<Order,Integer> {
+
+    void deleteCustomerOrderById(int id);
 }
