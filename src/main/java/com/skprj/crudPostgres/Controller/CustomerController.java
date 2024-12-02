@@ -1,8 +1,10 @@
 package com.skprj.crudPostgres.Controller;
 
+import com.skprj.crudPostgres.DTO.CustomerDTO;
 import com.skprj.crudPostgres.Entities.Customer;
-import com.skprj.crudPostgres.Model.ResponseDTO;
+import com.skprj.crudPostgres.DTO.ResponseDTO;
 import com.skprj.crudPostgres.Service.CustomerService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +19,14 @@ public class CustomerController {
 
     private CustomerService customerService;
 
+    @Transactional
     @PostMapping("/createCustomer")
-    public ResponseDTO<Customer> createCustomer(@RequestBody String name)
+    public ResponseDTO<Customer> createCustomer(@RequestBody CustomerDTO customerDTO)
     {
         Customer customer=new Customer();
-        customer.setCustomer_name(name);
-        customerService.save(customer);
+        customer.setCustomer_name(customerDTO.getName());
+        customer.setEmail(customerDTO.getEmail());
+        customerService.createCustomer(customer);
         return new ResponseDTO<>(true,"Customer details saved successfully", LocalDateTime.now(),customer);
     }
 
@@ -36,15 +40,16 @@ public class CustomerController {
     @GetMapping("/getCustomerById/{id}")
     public ResponseDTO<Customer> getCustomerById(@PathVariable int id)
     {
-        Optional<Customer> optionalCustomer = customerService.getCustomerById(id);
+        Optional<Customer> customer = customerService.getCustomerById(id);
 
-        if (optionalCustomer.isPresent()) {
-            return new ResponseDTO<>(true, "Customer found",LocalDateTime.now(),optionalCustomer.get());
+        if (customer.isPresent()) {
+            return new ResponseDTO<>(true, "Customer found",LocalDateTime.now(),customer.get());
         } else {
             return new ResponseDTO<>(false, "Customer not found",LocalDateTime.now(), null);
         }
     }
 
+    @Transactional
     @DeleteMapping("/deleteCustomer/{id}")
     public ResponseDTO<String> deleteCustomer(@PathVariable int id)
     {

@@ -14,9 +14,7 @@ public class CustomerService {
 
     private CustomerRepository customerRepository;
 
-    private OrderService orderService;
-
-    public void save(Customer customer)
+    public void createCustomer(Customer customer)
     {
         customerRepository.save(customer);
     }

@@ -21,6 +21,9 @@ public class Customer {
     @Column(nullable = false)
     private String customer_name;
 
+    @Column(nullable = false)
+    private String email;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 }
