@@ -1,6 +1,6 @@
 package com.skprj.crudPostgres.Service;
 
-import com.skprj.crudPostgres.Entities.Customer;
+import com.skprj.crudPostgres.Entities.Customers;
 import com.skprj.crudPostgres.Repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,19 +12,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerService {
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
-    public void createCustomer(Customer customer)
+    public void createCustomer(Customers customer)
     {
         customerRepository.save(customer);
     }
 
-    public List<Customer> getAllCustomers()
+    public List<Customers> getAllCustomers()
     {
         return customerRepository.findAll();
     }
 
-    public Optional<Customer> getCustomerById(int id)
+    public Optional<Customers> getCustomerById(int id)
     {
         return customerRepository.findById(id);
     }

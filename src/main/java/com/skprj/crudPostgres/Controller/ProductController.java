@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductController {
 
-    public ProductService productService;
+    private final ProductService productService;
 
     @Transactional
     @PostMapping("/addProduct")

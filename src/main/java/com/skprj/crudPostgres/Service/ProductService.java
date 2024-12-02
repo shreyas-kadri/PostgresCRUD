@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
 
-    public ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public void addproduct(ProductDTO productDTO)
     {

@@ -1,34 +1,29 @@
 package com.skprj.crudPostgres.Service;
 
-import com.skprj.crudPostgres.DTO.OrderProductDTO;
 import com.skprj.crudPostgres.DTO.OrderRequestDTO;
-import com.skprj.crudPostgres.Entities.Customer;
-import com.skprj.crudPostgres.Entities.Order;
-import com.skprj.crudPostgres.Entities.OrderProduct;
+import com.skprj.crudPostgres.Entities.Customers;
+import com.skprj.crudPostgres.Entities.Orders;
 import com.skprj.crudPostgres.Repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class OrderService {
 
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-    private OrderProductService orderProductService;
+    private final OrderProductService orderProductService;
 
-    private CustomerService customerService;
-
-    private ProductService productService;
+    private final CustomerService customerService;
 
     public void placeOrder(OrderRequestDTO orderRequestDTO)
     {
-        Optional<Customer> customer=customerService.getCustomerById(orderRequestDTO.getCustomer_id());
-        Order order=new Order();
+        Optional<Customers> customer=customerService.getCustomerById(orderRequestDTO.getCustomer_id());
+        Orders order=new Orders();
         order.setOrderDate(LocalDate.now());
         if(customer.isPresent())
         {

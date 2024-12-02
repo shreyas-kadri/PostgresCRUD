@@ -1,7 +1,7 @@
 package com.skprj.crudPostgres.Controller;
 
 import com.skprj.crudPostgres.DTO.CustomerDTO;
-import com.skprj.crudPostgres.Entities.Customer;
+import com.skprj.crudPostgres.Entities.Customers;
 import com.skprj.crudPostgres.DTO.ResponseDTO;
 import com.skprj.crudPostgres.Service.CustomerService;
 import jakarta.transaction.Transactional;
@@ -17,13 +17,13 @@ import java.util.Optional;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @Transactional
     @PostMapping("/createCustomer")
-    public ResponseDTO<Customer> createCustomer(@RequestBody CustomerDTO customerDTO)
+    public ResponseDTO<Customers> createCustomer(@RequestBody CustomerDTO customerDTO)
     {
-        Customer customer=new Customer();
+        Customers customer=new Customers();
         customer.setCustomer_name(customerDTO.getName());
         customer.setEmail(customerDTO.getEmail());
         customerService.createCustomer(customer);
@@ -31,16 +31,16 @@ public class CustomerController {
     }
 
     @GetMapping("/getAllCustomers")
-    public ResponseDTO<List<Customer>> getAllCustomer()
+    public ResponseDTO<List<Customers>> getAllCustomer()
     {
-        List<Customer> customers=customerService.getAllCustomers();
+        List<Customers> customers=customerService.getAllCustomers();
         return new ResponseDTO<>(true,"Customer details fetched successfully",LocalDateTime.now(),customers);
     }
 
     @GetMapping("/getCustomerById/{id}")
-    public ResponseDTO<Customer> getCustomerById(@PathVariable int id)
+    public ResponseDTO<Customers> getCustomerById(@PathVariable int id)
     {
-        Optional<Customer> customer = customerService.getCustomerById(id);
+        Optional<Customers> customer = customerService.getCustomerById(id);
 
         if (customer.isPresent()) {
             return new ResponseDTO<>(true, "Customer found",LocalDateTime.now(),customer.get());
@@ -54,7 +54,7 @@ public class CustomerController {
     public ResponseDTO<String> deleteCustomer(@PathVariable int id)
     {
         try {
-            Optional<Customer> optionalCustomer = customerService.getCustomerById(id);
+            Optional<Customers> optionalCustomer = customerService.getCustomerById(id);
 
             if (optionalCustomer.isPresent()) {
                 // If the customer exists, delete their order (if any) and the customer

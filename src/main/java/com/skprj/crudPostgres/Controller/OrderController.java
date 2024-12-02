@@ -2,7 +2,7 @@ package com.skprj.crudPostgres.Controller;
 
 import com.skprj.crudPostgres.DTO.OrderRequestDTO;
 import com.skprj.crudPostgres.DTO.ResponseDTO;
-import com.skprj.crudPostgres.Entities.Customer;
+import com.skprj.crudPostgres.Entities.Customers;
 import com.skprj.crudPostgres.Service.CustomerService;
 import com.skprj.crudPostgres.Service.OrderService;
 import com.skprj.crudPostgres.Service.ProductService;
@@ -21,17 +21,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderController {
 
-    public CustomerService customerService;
+    private final CustomerService customerService;
 
-    public OrderService orderService;
+    private final OrderService orderService;
 
-    public ProductService productService;
+    private final ProductService productService;
 
     @Transactional
     @PostMapping("/placeOrder")
     public ResponseDTO<OrderRequestDTO> placeOrder(@RequestBody OrderRequestDTO orderRequestDTO)
     {
-        Optional<Customer> customer=customerService.getCustomerById(orderRequestDTO.getCustomer_id());
+        Optional<Customers> customer=customerService.getCustomerById(orderRequestDTO.getCustomer_id());
         if(customer.isPresent())
         {
             if(productService.isInStock(orderRequestDTO))

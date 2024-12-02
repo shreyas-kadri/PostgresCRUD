@@ -1,7 +1,7 @@
 package com.skprj.crudPostgres.Repository;
 
-import com.skprj.crudPostgres.Entities.Customer;
+import com.skprj.crudPostgres.Entities.Customers;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CustomerRepository extends JpaRepository<Customer,Integer> {
+public interface CustomerRepository extends JpaRepository<Customers,Integer> {
 }

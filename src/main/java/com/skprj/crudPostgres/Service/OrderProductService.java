@@ -2,7 +2,7 @@ package com.skprj.crudPostgres.Service;
 
 import com.skprj.crudPostgres.DTO.OrderProductDTO;
 import com.skprj.crudPostgres.DTO.OrderRequestDTO;
-import com.skprj.crudPostgres.Entities.Order;
+import com.skprj.crudPostgres.Entities.Orders;
 import com.skprj.crudPostgres.Entities.OrderProduct;
 import com.skprj.crudPostgres.Repository.OrderProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderProductService {
 
-    public OrderProductRepository orderProductRepository;
+    private final OrderProductRepository orderProductRepository;
 
-    public ProductService productService;
+    private final ProductService productService;
 
-    public void recordOrder(Order order, OrderRequestDTO orderRequestDTO)
+    public void recordOrder(Orders order, OrderRequestDTO orderRequestDTO)
     {
         for(OrderProductDTO orderProductDTO : orderRequestDTO.getProducts())
         {
