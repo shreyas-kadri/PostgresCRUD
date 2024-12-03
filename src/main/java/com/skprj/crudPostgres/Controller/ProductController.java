@@ -6,6 +6,7 @@ import com.skprj.crudPostgres.Entities.Product;
 import com.skprj.crudPostgres.Service.ProductService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -57,7 +58,7 @@ public class ProductController {
         if(product.isPresent())
         {
             productService.changePrice(product,price);
-            return new ResponseDTO<>(true,"price changed successfully",LocalDateTime.now(),product);
+            return new ResponseDTO<>(true,"price changed successfully",LocalDateTime.now(),null);
         }
         else
         {

@@ -25,7 +25,7 @@ public class OrderProductService {
             orderProduct.setOrder(order);
             orderProduct.setProduct(productService.getProductById(orderProductDTO.getProductId())
                     .orElseThrow(()-> new IllegalArgumentException("Product not Found")));
-            orderProduct.setQuantity(orderProduct.getQuantity());
+            orderProduct.setQuantity(orderProductDTO.getQuantity());
             orderProductRepository.save(orderProduct);
         }
     }

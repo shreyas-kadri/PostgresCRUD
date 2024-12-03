@@ -23,6 +23,7 @@ public class ProductService {
         Product product=new Product();
         product.setProduct_name(productDTO.getName());
         product.setPrice(productDTO.getPrice());
+        product.setStock(productDTO.getStock());
         productRepository.save(product);
     }
 
@@ -58,7 +59,7 @@ public class ProductService {
         Optional<Product> product=productRepository.findById(productId);
         if(product.isPresent())
         {
-            int newQuantity=product.get().getStock();
+            int newQuantity=product.get().getStock() - quantity;
             productRepository.changeStock(productId,newQuantity);
         }
         else

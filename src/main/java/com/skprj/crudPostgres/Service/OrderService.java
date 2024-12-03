@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,4 +38,13 @@ public class OrderService {
         orderProductService.recordOrder(order,orderRequestDTO);
     }
 
+    public List<Orders> getAllOrders()
+    {
+        return orderRepository.findAll();
+    }
+
+    public Optional<Orders> getOrderDetailsById(int id)
+    {
+        return orderRepository.findById(id);
+    }
 }
