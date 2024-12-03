@@ -5,10 +5,12 @@ import com.skprj.crudPostgres.DTO.ResponseDTO;
 import com.skprj.crudPostgres.Entities.Customers;
 import com.skprj.crudPostgres.Entities.Orders;
 import com.skprj.crudPostgres.Service.CustomerService;
+import com.skprj.crudPostgres.Service.OrderProductService;
 import com.skprj.crudPostgres.Service.OrderService;
 import com.skprj.crudPostgres.Service.ProductService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -25,6 +27,8 @@ public class OrderController {
     private final OrderService orderService;
 
     private final ProductService productService;
+
+    private final OrderProductService orderProductService;
 
     @Transactional
     @PostMapping("/placeOrder")
@@ -63,6 +67,25 @@ public class OrderController {
                 return new ResponseDTO<>(true, "Customer order details fetched successfully", LocalDateTime.now(), order);
             else
                 return new ResponseDTO<>(false,"Customer has no orders placed",LocalDateTime.now(),null);
+        }
+        return new ResponseDTO<>(false,"Customer not found",LocalDateTime.now(),null);
+    }
+
+    @GetMapping("/getTotalBill")
+    public ResponseDTO<Double> getTotalBill(@RequestParam("customerId") int cust_id,@RequestParam("orderId") int order_id)
+    {
+        Optional<Customers> customer=customerService.getCustomerById(cust_id);
+        if(customer.isPresent())
+        {
+            Optional<Orders> order = orderService.getOrderDetailsById(order_id);
+            if (order.isPresent())
+            {
+               Double totalBill=orderProductService.getTotalBill(cust_id,order_id);
+               return new ResponseDTO<>(true,"Total bill amount calculated",LocalDateTime.now(),totalBill);
+
+            }
+            else
+                return new ResponseDTO<>(false,"Customer has no orders placed/invalid order id",LocalDateTime.now(),null);
         }
         return new ResponseDTO<>(false,"Customer not found",LocalDateTime.now(),null);
     }

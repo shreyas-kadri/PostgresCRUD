@@ -29,4 +29,9 @@ public class OrderProductService {
             orderProductRepository.save(orderProduct);
         }
     }
+
+    public Double getTotalBill(int custId, int orderId)
+    {
+        return orderProductRepository.getTotalBill(custId,orderId);
+    }
 }

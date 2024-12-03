@@ -6,7 +6,6 @@ import com.skprj.crudPostgres.Entities.Product;
 import com.skprj.crudPostgres.Service.ProductService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
