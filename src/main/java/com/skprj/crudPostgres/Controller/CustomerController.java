@@ -42,9 +42,12 @@ public class CustomerController {
     {
         Optional<Customers> customer = customerService.getCustomerById(id);
 
-        if (customer.isPresent()) {
+        if (customer.isPresent())
+        {
             return new ResponseDTO<>(true, "Customer found",LocalDateTime.now(),customer.get());
-        } else {
+        }
+        else
+        {
             return new ResponseDTO<>(false, "Customer not found",LocalDateTime.now(), null);
         }
     }
