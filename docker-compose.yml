@@ -28,6 +28,22 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+      - keycloak
+    networks:
+      - app-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    container_name: keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev --import-realm
+    ports:
+      - "8090:8080"
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+      - ./keyCloakConfig.json:/opt/keycloak/data/import/keyCloakConfig.json
     networks:
       - app-network
 
@@ -46,8 +62,8 @@ services:
 
 volumes:
   postgres-data:
+  keycloak-data:
 
 networks:
   app-network:
     driver: bridge
-
