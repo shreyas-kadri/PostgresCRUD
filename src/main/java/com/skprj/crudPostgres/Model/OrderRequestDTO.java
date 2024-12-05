@@ -5,13 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderRequestDTO {
 
+    private int customer_id;
     private LocalDate orderDate;
+    private List<OrderProductDTO> products;
 
-    private int custId;
 }
