@@ -1,9 +1,12 @@
 package com.skprj.crudPostgres.Repository;
 
-import com.skprj.crudPostgres.Entities.Order;
+import com.skprj.crudPostgres.Entities.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-public interface OrderRepository extends JpaRepository<Order,Integer> {
+import java.util.List;
 
-    void deleteCustomerOrderById(int id);
+public interface OrderRepository extends JpaRepository<Orders,Integer> {
+
 }

@@ -1,15 +1,19 @@
 package com.skprj.crudPostgres.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Product {
 
     @Id
@@ -20,5 +24,12 @@ public class Product {
     private String product_name;
 
     @Column(nullable = false)
-    private int price;
+    private BigDecimal price;
+
+    @Column(nullable = false)
+    private int stock;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderProduct> orderProducts = new ArrayList<>();
 }

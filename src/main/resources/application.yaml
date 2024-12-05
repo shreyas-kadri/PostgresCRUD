@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: crudPostgres
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Store_DB
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/TestRealm
+          jwk-set-uri: http://keycloak:8080/realms/TestRealm/protocol/openid-connect/certs
+
+server:
+  port : 8080

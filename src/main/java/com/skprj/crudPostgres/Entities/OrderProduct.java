@@ -1,28 +1,29 @@
 package com.skprj.crudPostgres.Entities;
 
-import com.skprj.crudPostgres.Model.OrderProductId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 public class OrderProduct {
 
-    @EmbeddedId
-    private OrderProductId OrderProduct_id = new OrderProductId();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
+    @JsonIgnore
     @ManyToOne
-    @MapsId("order_id")
-    private Order order;
+    @JoinColumn(name = "order_id", nullable = false)
+    private Orders order;
 
+    @JsonIgnore
     @ManyToOne
-    @MapsId("product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
 }

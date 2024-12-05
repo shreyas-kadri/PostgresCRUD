@@ -1,5 +1,6 @@
 package com.skprj.crudPostgres.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Customer {
+public class Customers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,10 @@ public class Customer {
     @Column(nullable = false)
     private String customer_name;
 
+    @Column(nullable = false)
+    private String email;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orders = new ArrayList<>();
+    private List<Orders> orders = new ArrayList<>();
 }

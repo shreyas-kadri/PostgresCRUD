@@ -1,4 +1,4 @@
-package com.skprj.crudPostgres.Model;
+package com.skprj.crudPostgres.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderProductDTO {
+public class CustomerDTO {
 
-    private int product_id;
-    private int quantity;
+    private String name;
+
+    private String email;
+
 }

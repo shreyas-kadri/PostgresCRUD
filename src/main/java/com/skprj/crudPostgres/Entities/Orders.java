@@ -1,17 +1,19 @@
 package com.skprj.crudPostgres.Entities;
 
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
+
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class Order {
+@Getter
+@Setter
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +24,8 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    private Customers customer;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderProduct> orderProducts;
 }
